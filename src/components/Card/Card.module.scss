@@ -1,0 +1,63 @@
+$radius: 12px;
+
+.wrapper {
+  perspective: 1000px;
+  border-radius: $radius;
+}
+
+.inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: $radius;
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  border-radius: $radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.back {
+  background: linear-gradient(135deg, #1e1f2a, #0d0f1a);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  &::before {
+    content: "✦";
+    font-size: 2em;
+    color: rgba(255, 255, 255, 0.15);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+  }
+}
+
+.front {
+  background: #ffffff;
+  border: 2px solid transparent;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.emoji {
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  line-height: 1;
+}
+
+.number {
+  font-size: 0.6rem;
+  color: #8890b0;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}

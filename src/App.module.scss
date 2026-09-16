@@ -1,0 +1,31 @@
+body {
+  background: #fff;
+
+  & > div {
+    border-inline: 0 !important;
+  }
+}
+
+.app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(12px, 3vw, 28px) clamp(10px, 3vw, 24px);
+  gap: clamp(12px, 2.5vw, 20px);
+  background: #fff;
+
+  @supports not (min-height: 100dvh) {
+    min-height: 100vh;
+  }
+}
+
+.gameArea {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 2vw, 20px);
+  flex: 1;
+}

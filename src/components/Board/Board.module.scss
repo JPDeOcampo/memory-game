@@ -1,0 +1,16 @@
+$gap: clamp(6px, 1.2vw, 12px);
+
+.board {
+  display: grid;
+  gap: $gap;
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 4px;
+}
+
+.card {
+  aspect-ratio: 3 / 4;
+  min-width: 0;
+  min-height: 0;
+}
