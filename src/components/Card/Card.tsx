@@ -10,6 +10,7 @@ interface Props {
   isMatched: boolean;
   hideMatched: boolean;
   numbered: boolean;
+  classroomLabel?: string;
   disabled: boolean;
   onFlip: (id: number) => void;
 }
@@ -48,6 +49,7 @@ const Card = ({
   isMatched,
   hideMatched,
   numbered,
+  classroomLabel,
   disabled,
   onFlip,
 }: Props) => {
@@ -97,7 +99,9 @@ const Card = ({
           ? `Matched: ${symbol}`
           : isFlipped
             ? `Card showing ${symbol}`
-            : "Face-down card"
+            : classroomLabel
+              ? `Face-down card at ${classroomLabel}`
+              : "Face-down card"
       }
       onClick={() => {
         if (!disabled && !faceUp) {
@@ -113,7 +117,14 @@ const Card = ({
       >
         <div className={`${styles.face} ${styles.back}`} aria-hidden="true">
           {numbered && <span>{cardIndex + 1}</span>}
-          {!numbered && <Astroid fill="#fff" stroke="#fff" />}
+
+          {classroomLabel && (
+            <span className={styles.classroomLabel}>{classroomLabel}</span>
+          )}
+
+          {!numbered && !classroomLabel && (
+            <Astroid fill="#fff" stroke="#fff" />
+          )}
         </div>
 
         <div

@@ -29,6 +29,7 @@ export interface Settings {
   hideTimer: boolean;
   hideMoves: boolean;
   numberedCards: boolean;
+  classroomMode: boolean;
   sound: boolean;
 }
 

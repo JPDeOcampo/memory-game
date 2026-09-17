@@ -19,6 +19,7 @@ const DEFAULT_SETTINGS: Settings = {
   hideTimer: false,
   hideMoves: false,
   numberedCards: false,
+  classroomMode: false,
   sound: false,
 };
 
@@ -106,6 +107,7 @@ export default function App() {
           cols={diff.cols}
           hideMatched={settings.hideMatched}
           numbered={settings.numberedCards}
+          classroomMode={settings.classroomMode}
           disabled={isChecking || showResult}
           onFlip={flipCard}
         />

@@ -9,9 +9,22 @@ interface Props {
   cols: number;
   hideMatched: boolean;
   numbered: boolean;
+  classroomMode: boolean;
   disabled: boolean;
   onFlip: (id: number) => void;
 }
+
+const getRowLabel = (rowIndex: number) => {
+  let label = "";
+  let index = rowIndex;
+
+  do {
+    label = String.fromCharCode(97 + (index % 26)) + label;
+    index = Math.floor(index / 26) - 1;
+  } while (index >= 0);
+
+  return label;
+};
 
 const Board = ({
   cards,
@@ -20,6 +33,7 @@ const Board = ({
   cols,
   hideMatched,
   numbered,
+  classroomMode,
   disabled,
   onFlip,
 }: Props) => {
@@ -38,6 +52,11 @@ const Board = ({
             isMatched={matched.has(card.pairId)}
             hideMatched={hideMatched}
             numbered={numbered}
+            classroomLabel={
+              classroomMode
+                ? `${getRowLabel(Math.floor(card.id / cols))}${(card.id % cols) + 1}`
+                : undefined
+            }
             disabled={disabled}
             onFlip={onFlip}
           />

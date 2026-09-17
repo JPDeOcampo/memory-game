@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import styles from "./DifficultyModal.module.scss";
 import type { DifficultyKey } from "@/@types/types";
 import { DIFFICULTIES } from "@/constants/constants";
-import { X } from "lucide-react";
 import Modal from "@/components/shared/Modal/Modal";
 
 interface Props {

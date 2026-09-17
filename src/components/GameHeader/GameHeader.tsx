@@ -47,6 +47,7 @@ const GameHeader = ({
   playerScores,
 }: Props) => {
   const diff = DIFFICULTIES[difficulty];
+  const DifficultyIcon = diff.icon;
   const progress = totalPairs > 0 ? (matched / totalPairs) * 100 : 0;
 
   const timerColor =
@@ -72,7 +73,7 @@ const GameHeader = ({
     <header className={styles.header}>
       <div className={styles.topRow}>
         <h1 className={styles.title}>
-          <span>Memory Game Concentration</span>
+          <span>Memory Game</span>
         </h1>
         <div style={{ display: "flex", gap: 6 }}>
           <button
@@ -186,7 +187,7 @@ const GameHeader = ({
           onClick={onDifficultyOpen}
           aria-label="Change difficulty"
         >
-          {diff.label}
+          <DifficultyIcon color={diff.color} /> {diff.label}
         </button>
         <button
           className={styles.restartBtn}

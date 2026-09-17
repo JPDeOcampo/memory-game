@@ -14,6 +14,7 @@ const DEFAULT: Settings = {
   hideTimer: false,
   hideMoves: false,
   numberedCards: false,
+  classroomMode: false,
   sound: false,
 };
 
@@ -63,7 +64,27 @@ const SettingsDrawer = ({ settings, onChange, onClose }: Props) => {
           <span className={styles.rowLabel}>Numbered Cards</span>
           <Toggle
             value={settings.numberedCards}
-            onChange={(v) => set("numberedCards", v)}
+            onChange={(v) =>
+              onChange({
+                ...settings,
+                numberedCards: v,
+                classroomMode: v ? false : settings.classroomMode,
+              })
+            }
+          />
+        </div>
+
+        <div className={styles.row}>
+          <span className={styles.rowLabel}>Classroom Mode</span>
+          <Toggle
+            value={settings.classroomMode}
+            onChange={(v) =>
+              onChange({
+                ...settings,
+                classroomMode: v,
+                numberedCards: v ? false : settings.numberedCards,
+              })
+            }
           />
         </div>
         <div className={styles.row}>
