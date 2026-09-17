@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import styles from "./WinModal.module.scss";
 import type { DifficultyKey, GameMode, BestScore } from "@/@types/types";
+import type { PlayerScores } from "@/@types/types";
 import { DIFFICULTIES, GAME_MODES } from "@/constants/constants";
 import { formatTime } from "@/utils/formatTime";
 import Modal from "@/components/shared/Modal/Modal";
@@ -15,6 +16,7 @@ interface Props {
   bestScore: BestScore | null;
   onRestart: () => void;
   onChangeDifficulty: () => void;
+  playerScores: PlayerScores;
 }
 
 const WinModal = ({
@@ -27,6 +29,7 @@ const WinModal = ({
   bestScore,
   onRestart,
   onChangeDifficulty,
+  playerScores,
 }: Props) => {
   const primaryRef = useRef<HTMLButtonElement>(null);
 
@@ -41,6 +44,10 @@ const WinModal = ({
 
   const diff = DIFFICULTIES[difficulty];
   const modeConfig = GAME_MODES[gameMode];
+  const playerWinner =
+    playerScores[1] === playerScores[2]
+      ? "It's a tie!"
+      : `Player ${playerScores[1] > playerScores[2] ? 1 : 2} wins!`;
 
   return (
     <Modal
@@ -49,33 +56,54 @@ const WinModal = ({
     >
       <div className={styles.trophy}>{won ? "🏆" : "😔"}</div>
       <div id="result-headline" className={styles.headline}>
-        {won ? "You did it!" : "Game Over"}
+        {won
+          ? gameMode === "two-player"
+            ? playerWinner
+            : "You did it!"
+          : "Game Over"}
       </div>
       <div className={styles.sub}>
         {won
-          ? `${diff.label} • ${modeConfig.label} — All pairs matched!`
+          ? gameMode === "two-player"
+            ? `${diff.label} • ${modeConfig.label} — Final score`
+            : `${diff.label} • ${modeConfig.label} — All pairs matched!`
           : gameMode === "beat-the-clock"
             ? "Time ran out before you matched all pairs."
             : "You ran out of moves!"}
       </div>
 
       {won && (
-        <div className={styles.stats}>
+        <>
           <div className={styles.stat}>
             <span className={styles.statLabel}>⏱ Time</span>
             <span className={styles.statValue}>{formatTime(timer)}</span>
           </div>
-          <div className={styles.stat}>
-            <span className={styles.statLabel}>🔄 Moves</span>
-            <span className={styles.statValue}>{moves}</span>
-          </div>
-          {bestScore && (
+          <div className={styles.stats}>
+            {gameMode === "two-player" && (
+              <>
+                <div className={styles.stat}>
+                  <span className={styles.statLabel}>Player 1</span>
+                  <span className={styles.statValue}>{playerScores[1]}</span>
+                </div>
+                <div className={styles.stat}>
+                  <span className={styles.statLabel}>Player 2</span>
+                  <span className={styles.statValue}>{playerScores[2]}</span>
+                </div>
+              </>
+            )}
+            <div className={styles.divider} />
             <div className={styles.stat}>
-              <span className={styles.statLabel}>🥇 Best</span>
-              <span className={styles.statValue}>{bestScore.moves}m</span>
+              <span className={styles.statLabel}>🔄 Moves</span>
+              <span className={styles.statValue}>{moves}</span>
             </div>
-          )}
-        </div>
+            {bestScore && (
+              <div className={styles.stat}>
+                <span className={styles.statLabel}>🥇 Best</span>
+                <span className={styles.statValue}>{bestScore.moves}m</span>
+              </div>
+            )}
+          </div>
+        </>
       )}
 
       {isNewBest && won && (

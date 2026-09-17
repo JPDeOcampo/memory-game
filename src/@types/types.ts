@@ -8,7 +8,15 @@ export type DifficultyKey =
   | "hard"
   | "expert"
   | "master";
-export type GameMode = "classic" | "limited-moves" | "beat-the-clock";
+export type GameMode =
+  | "classic"
+  | "limited-moves"
+  | "beat-the-clock"
+  | "two-player";
+
+export type Player = 1 | 2;
+
+export type PlayerScores = Record<Player, number>;
 
 export interface CardData {
   id: number;

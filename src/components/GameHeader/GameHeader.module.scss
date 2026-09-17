@@ -111,6 +111,32 @@
   margin: 0 auto;
 }
 
+.playerStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 14px;
+  border: 1px solid $border;
+  border-radius: 12px;
+  color: $muted;
+  font-size: 0.78rem;
+  font-weight: 700;
+
+  .playerTurn {
+    color: $text;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+}
+
+.activePlayer {
+  color: $surface;
+  background: $primary;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
 .modes {
   display: flex;
   gap: 6px;

@@ -71,6 +71,14 @@
   margin-bottom: 20px;
 }
 
+.divider {
+  width: 2px;
+  height: 100px;
+  align-self: stretch;
+  background: $surface2;
+  margin: 0 auto;
+}
+
 .stat {
   display: flex;
   flex-direction: column;

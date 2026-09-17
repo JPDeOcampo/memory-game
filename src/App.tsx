@@ -48,6 +48,8 @@ export default function App() {
     totalPairs,
     diff,
     isChecking,
+    currentPlayer,
+    playerScores,
   } = useGame(difficulty, gameMode, settings);
 
   // Update best score on win
@@ -93,6 +95,8 @@ export default function App() {
           onSettingsOpen={() => setShowSettings(true)}
           onModeChange={handleModeChange}
           onRestart={reset}
+          currentPlayer={currentPlayer}
+          playerScores={playerScores}
         />
 
         <Board
@@ -132,6 +136,7 @@ export default function App() {
           timer={timer}
           isNewBest={isNewBest}
           bestScore={bestScore}
+          playerScores={playerScores}
           onRestart={() => {
             reset();
           }}

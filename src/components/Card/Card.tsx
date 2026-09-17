@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { SYMBOL_ICONS } from "@/constants/constants";
 import styles from "./Card.module.scss";
+import { Astroid } from "lucide-react";
 
 interface Props {
   symbol: keyof typeof SYMBOL_ICONS;
@@ -110,7 +111,10 @@ const Card = ({
           faceUp ? styles.flipped : ""
         } ${justMatched ? styles.matchAnim : ""}`}
       >
-        <div className={`${styles.face} ${styles.back}`} aria-hidden="true" />
+        <div className={`${styles.face} ${styles.back}`} aria-hidden="true">
+          {numbered && <span>{cardIndex + 1}</span>}
+          {!numbered && <Astroid fill="#fff" stroke="#fff" />}
+        </div>
 
         <div
           className={`${styles.face} ${styles.front} ${

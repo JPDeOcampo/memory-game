@@ -9,6 +9,7 @@ import {
   Sparkles,
   Target,
   Timer,
+  Users,
   Zap,
   Bird,
   Bug,
@@ -209,5 +210,12 @@ export const GAME_MODES: Record<GameMode, GameModeConfig> = {
     description: "Match all pairs before time runs out.",
     icon: Timer,
     color: "#ef4444",
+  },
+
+  "two-player": {
+    label: "2 Player",
+    description: "Take turns finding pairs. Match again to keep your turn.",
+    icon: Users,
+    color: "#8b5cf6",
   },
 };

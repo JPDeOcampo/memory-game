@@ -1,5 +1,6 @@
 import styles from "./GameHeader.module.scss";
 import type { DifficultyKey, GameMode } from "@/@types/types";
+import type { Player, PlayerScores } from "@/@types/types";
 import { DIFFICULTIES, GAME_MODES } from "@/constants/constants";
 import {
   Bot,
@@ -25,6 +26,8 @@ interface Props {
   onSettingsOpen: () => void;
   onModeChange: (m: GameMode) => void;
   onRestart: () => void;
+  currentPlayer: Player;
+  playerScores: PlayerScores;
 }
 
 const GameHeader = ({
@@ -40,6 +43,8 @@ const GameHeader = ({
   onSettingsOpen,
   onModeChange,
   onRestart,
+  currentPlayer,
+  playerScores,
 }: Props) => {
   const diff = DIFFICULTIES[difficulty];
   const progress = totalPairs > 0 ? (matched / totalPairs) * 100 : 0;
@@ -62,7 +67,7 @@ const GameHeader = ({
           ? "warning"
           : ""
       : "";
-  console.log(moves);
+
   return (
     <header className={styles.header}>
       <div className={styles.topRow}>
@@ -127,6 +132,7 @@ const GameHeader = ({
             {hideTimer ? "—" : formatTime(timer)}
           </span>
         </div>
+
         <div className={styles.divider} />
         <div className={styles.stat}>
           <span className={styles.statLabel}>
@@ -160,7 +166,19 @@ const GameHeader = ({
           </span>
         </div>
       </div>
-
+      {gameMode === "two-player" && (
+        <div className={styles.playerStatus} aria-live="polite">
+          <span className={currentPlayer === 1 ? styles.activePlayer : ""}>
+            Player 1: {playerScores[1]}{" "}
+            {playerScores[1] === 1 ? "match" : "matches"}
+          </span>
+          <p className={styles.playerTurn}>Player {currentPlayer}'s turn</p>
+          <span className={currentPlayer === 2 ? styles.activePlayer : ""}>
+            Player 2: {playerScores[2]}{" "}
+            {playerScores[2] === 1 ? "match" : "matches"}
+          </span>
+        </div>
+      )}
       {/* Progress + action row */}
       <div className={styles.actionRow}>
         <button

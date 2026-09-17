@@ -3,6 +3,8 @@ import type {
   CardData,
   DifficultyKey,
   GameMode,
+  Player,
+  PlayerScores,
   Settings,
 } from "@/@types/types";
 import { DIFFICULTIES, SYMBOLS } from "@/constants/constants";
@@ -43,6 +45,11 @@ export const useGame = (
   const [gameWon, setGameWon] = useState(false);
   const [gameLost, setGameLost] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
+  const [currentPlayer, setCurrentPlayer] = useState<Player>(1);
+  const [playerScores, setPlayerScores] = useState<PlayerScores>({
+    1: 0,
+    2: 0,
+  });
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const matchedRef = useRef(matched);
   matchedRef.current = matched;
@@ -65,6 +72,8 @@ export const useGame = (
     setGameWon(false);
     setGameLost(false);
     setIsChecking(false);
+    setCurrentPlayer(1);
+    setPlayerScores({ 1: 0, 2: 0 });
   }, [diffKey, mode, stopTimer]);
 
   useEffect(() => {
@@ -112,6 +121,10 @@ export const useGame = (
 
         if (cards[aId].symbol === cards[bId].symbol) {
           setTimeout(() => {
+            setPlayerScores((prev) => ({
+              ...prev,
+              [currentPlayer]: prev[currentPlayer] + 1,
+            }));
             setMatched((prev) => {
               const next = new Set(prev);
               next.add(cards[aId].pairId);
@@ -128,6 +141,9 @@ export const useGame = (
           setTimeout(() => {
             setFlipped([]);
             setIsChecking(false);
+            if (mode === "two-player") {
+              setCurrentPlayer((player) => (player === 1 ? 2 : 1));
+            }
             if (mode === "limited-moves" && nextMoves >= diff.moveLimit) {
               stopTimer();
               setGameLost(true);
@@ -148,6 +164,7 @@ export const useGame = (
       diff.moveLimit,
       totalPairs,
       stopTimer,
+      currentPlayer,
     ],
   );
 
@@ -165,5 +182,7 @@ export const useGame = (
     diff,
     gameStarted,
     isChecking,
+    currentPlayer,
+    playerScores,
   };
 };
