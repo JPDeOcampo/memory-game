@@ -1,11 +1,4 @@
-$surface: #efefef;
-$border: rgba(255, 255, 255, 0.07);
-$text: #252525;
-$muted: #8890b0;
-$primary: #ff9b00;
-$accent: #f59e0b;
-$danger: #ef4444;
-$success: #10b981;
+@use "../../scss/colors" as *;
 
 .header {
   width: 100%;
@@ -34,7 +27,7 @@ $success: #10b981;
 }
 
 .iconBtn {
-  background: $surface;
+  background: $surface2;
   border: 1px solid $border;
   color: $muted;
   border-radius: 10px;
@@ -55,7 +48,7 @@ $success: #10b981;
   &:focus-visible {
     background: $primary;
     border-color: rgba(255, 255, 255, 0.18);
-    color: $text;
+    color: $hoverText;
     outline: none;
   }
 }
@@ -64,7 +57,7 @@ $success: #10b981;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  background: $surface;
+  background: $surface2;
   border: 1px solid $border;
   border-radius: 14px;
   padding: 10px 14px;
@@ -82,6 +75,14 @@ $success: #10b981;
     letter-spacing: 0.08em;
     color: $muted;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   &Value {
@@ -113,7 +114,7 @@ $success: #10b981;
 .modes {
   display: flex;
   gap: 6px;
-  background: $surface;
+  background: $surface2;
   border: 1px solid $border;
   border-radius: 14px;
   padding: 6px;
@@ -127,7 +128,6 @@ $success: #10b981;
   background: transparent;
   color: $muted;
   cursor: pointer;
-  font-family: "Nunito", sans-serif;
   font-size: clamp(0.65rem, 1.5vw, 0.8rem);
   font-weight: 700;
   text-align: center;
@@ -171,13 +171,13 @@ $success: #10b981;
   display: flex;
   align-items: center;
   gap: 6px;
-  background: $surface;
+  background: $surface2;
   border: 1px solid $border;
   border-radius: 10px;
   padding: 6px 12px;
   cursor: pointer;
   color: $text;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 700;
   transition:
     border-color 0.15s,
@@ -188,6 +188,7 @@ $success: #10b981;
     border-color: rgba(255, 255, 255, 0.2);
     background: $primary;
     outline: none;
+    color: $hoverText;
   }
 
   svg {
@@ -212,11 +213,45 @@ $success: #10b981;
   display: flex;
   align-items: center;
   gap: 6px;
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    background: rgba($primary, 0.25);
+    border-color: rgba($primary, 0.5);
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .progressBar {
-  height: 4px;
-  background: rgba(255, 255, 255, 0.06);
+  height: 6px;
+  background: rgba(51, 42, 42, 0.06);
   border-radius: 2px;
   overflow: hidden;
+
+  &Fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #22c55e, #4ade80);
+    transition: width 0.4s ease;
+  }
+}
+
+.movesLeft {
+  font-size: 0.65rem;
+  color: $muted;
+  text-align: center;
+}
+
+@media (max-width: 400px) {
+  .controls {
+    padding: 8px 10px;
+  }
+  .modeBtn {
+    padding: 6px 4px;
+  }
 }
