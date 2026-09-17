@@ -74,7 +74,7 @@ const WinModal = ({
 
       {won && (
         <>
-          <div className={styles.stat}>
+          <div className={`${styles.stat} ${styles.timer}`}>
             <span className={styles.statLabel}>⏱ Time</span>
             <span className={styles.statValue}>{formatTime(timer)}</span>
           </div>
@@ -89,9 +89,10 @@ const WinModal = ({
                   <span className={styles.statLabel}>Player 2</span>
                   <span className={styles.statValue}>{playerScores[2]}</span>
                 </div>
+                <div className={styles.divider} />
               </>
             )}
-            <div className={styles.divider} />
+
             <div className={styles.stat}>
               <span className={styles.statLabel}>🔄 Moves</span>
               <span className={styles.statValue}>{moves}</span>

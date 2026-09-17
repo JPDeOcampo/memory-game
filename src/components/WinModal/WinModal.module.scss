@@ -99,6 +99,10 @@
     color: $text;
     font-variant-numeric: tabular-nums;
   }
+
+  &.timer {
+    margin-bottom: 16px;
+  }
 }
 
 .bestBadge {

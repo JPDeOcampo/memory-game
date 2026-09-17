@@ -1,11 +1,11 @@
 import { useCallback } from "react";
 import type { DifficultyKey, GameMode, BestScore } from "@/@types/types";
 
-function scoreKey(diff: DifficultyKey, mode: GameMode) {
+const scoreKey = (diff: DifficultyKey, mode: GameMode) => {
   return `memory_best_${diff}_${mode}`;
-}
+};
 
-export function useBestScore() {
+export const useBestScore = () => {
   const getBest = useCallback(
     (diff: DifficultyKey, mode: GameMode): BestScore | null => {
       try {
@@ -44,4 +44,4 @@ export function useBestScore() {
   );
 
   return { getBest, trySetBest };
-}
+};
